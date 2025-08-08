@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Blocker</title>
+    <style>
+      body { width: 280px; font-family: system-ui, sans-serif; padding: 12px; }
+      h1 { font-size: 16px; margin: 0 0 8px; }
+      .row { margin: 8px 0; }
+      button { padding: 6px 10px; }
+      input[type="text"] { width: 100%; }
+      .hint { color: #475569; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>AI Blocker</h1>
+    <div class="row">
+      <label><input type="checkbox" id="enabled" /> Enable on this site</label>
+    </div>
+    <div class="row">
+      <button id="openOptions">Open Options</button>
+    </div>
+    <div class="hint" id="status"></div>
+    <script src="popup.js"></script>
+  </body>
+  </html>
+
+

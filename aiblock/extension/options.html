@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Blocker Options</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 16px; }
+      textarea { width: 100%; min-height: 120px; }
+      .row { margin-bottom: 16px; }
+      label { display: block; font-weight: 600; margin-bottom: 6px; }
+      button { padding: 8px 12px; }
+      .hint { color: #475569; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>AI Blocker Options</h1>
+    <div class="row">
+      <label for="keywords">Keywords (one per line)</label>
+      <textarea id="keywords" placeholder="ai\nartificial intelligence\nchatgpt\nopenai\nllm\ngenerative"></textarea>
+      <div class="hint">Pages containing any of these words will be hidden.</div>
+    </div>
+    <div class="row">
+      <label for="domains">Blocked Domains (one per line)</label>
+      <textarea id="domains" placeholder="openai.com\ncharacter.ai\nmicrosoft.com/copilot\nperplexity.ai"></textarea>
+      <div class="hint">Whole sites to block using network rules.</div>
+    </div>
+    <div class="row">
+      <label for="whitelist">Whitelist Domains (one per line)</label>
+      <textarea id="whitelist" placeholder="example.com"></textarea>
+      <div class="hint">These domains will never be blocked.</div>
+    </div>
+    <div class="row">
+      <button id="save">Save</button>
+      <span id="status" class="hint" style="margin-left:8px;"></span>
+    </div>
+    <script src="options.js"></script>
+  </body>
+  </html>
+
+
