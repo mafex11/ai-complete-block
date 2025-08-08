@@ -1,0 +1,61 @@
+{
+  "keywords": [
+    "ai",
+    "artificial intelligence",
+    "chatgpt",
+    "openai",
+    "llm",
+    "generative",
+    "genai",
+    "autonomous agents",
+    "stable diffusion",
+    "midjourney",
+    "claude",
+    "copilot"
+  ],
+  "domains": [
+    "openai.com",
+    "perplexity.ai",
+    "character.ai",
+    "anthropic.com",
+    "cohere.com",
+    "poe.com",
+    "midjourney.com",
+    "stability.ai"
+  ],
+  "whitelist": [],
+  "rules": {
+    "globalSelectors": [
+      "[aria-label*='AI' i]",
+      "[data-testid*='ai' i]",
+      "[class*='ai-summary' i]",
+      "[class*='ai-overview' i]",
+      "[data-component*='ai' i]"
+    ],
+    "perDomain": {
+      "google.com": [
+        "[aria-label*='AI Overview' i]",
+        "[role='complementary'][data-ved]",
+        "div[aria-label*='AI Overviews' i]"
+      ],
+      "youtube.com": [
+        "ytd-engagement-panel-section-list-renderer",
+        "ytd-info-panel-content-renderer",
+        "#description-inline-expander tp-yt-paper-button:has(span:contains('AI'))"
+      ],
+      "x.com": [
+        "[data-testid='ai-summaries']",
+        "[aria-label*='AI' i]"
+      ],
+      "linkedin.com": [
+        "[data-test-id*='ai' i]",
+        "[aria-label*='AI' i]"
+      ],
+      "github.com": [
+        "[href*='copilot' i]",
+        "[aria-label*='Copilot' i]",
+        "[data-hotkey='g c']"
+      ]
+    }
+  }
+}

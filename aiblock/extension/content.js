@@ -55,11 +55,13 @@ async function applyKeywordBlocking() {
   }
 
   if (matched) {
-    document.documentElement.innerHTML = '';
+    if (document.body) {
+      document.body.innerHTML = '';
+    }
     const blocker = document.createElement('div');
     blocker.style.cssText = 'position:fixed;inset:0;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font:16px system-ui;z-index:2147483647;padding:24px;text-align:center;';
     blocker.textContent = 'Blocked AI-related content by AI Blocker';
-    document.body.appendChild(blocker);
+    (document.documentElement || document.body || document).appendChild(blocker);
   }
 }
 

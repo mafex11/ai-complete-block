@@ -8,6 +8,31 @@ async function getConfig() {
   });
 }
 
+async function ensureConfigSeeded() {
+  const current = await getConfig();
+  const hasAny = (arr) => Array.isArray(arr) && arr.length > 0;
+  if (hasAny(current.keywords) || hasAny(current.domains) || hasAny(current.whitelist)) {
+    return current;
+  }
+  try {
+    const url = chrome.runtime.getURL('config/config.json');
+    const res = await fetch(url);
+    if (res.ok) {
+      const fileCfg = await res.json();
+      const merged = {
+        keywords: Array.isArray(fileCfg.keywords) ? fileCfg.keywords : [],
+        domains: Array.isArray(fileCfg.domains) ? fileCfg.domains : [],
+        whitelist: Array.isArray(fileCfg.whitelist) ? fileCfg.whitelist : []
+      };
+      await new Promise((resolve) => chrome.storage.local.set({ aiblockConfig: merged }, resolve));
+      return merged;
+    }
+  } catch (e) {
+    console.log('[AI Blocker] Failed to seed config.json', e);
+  }
+  return current;
+}
+
 function buildUrlFilterList(domains) {
   return domains
     .filter(Boolean)
@@ -27,7 +52,16 @@ function keywordToRegex(keyword) {
 async function updateDNRRules() {
   const config = await getConfig();
 
-  const urlFilters = buildUrlFilterList(config.domains || []);
+  const whitelist = new Set((config.whitelist || []).filter(Boolean));
+  const filteredDomains = (config.domains || []).filter((domain) => {
+    // Skip if domain is exactly whitelisted or a subdomain of any whitelist entry
+    for (const w of whitelist) {
+      if (domain === w || domain.endsWith(`.${w}`)) return false;
+    }
+    return true;
+  });
+
+  const urlFilters = buildUrlFilterList(filteredDomains);
 
   const blockRules = urlFilters.map((pattern, idx) => ({
     id: idx + 1,
@@ -50,10 +84,12 @@ async function updateDNRRules() {
 
 chrome.runtime.onInstalled.addListener(async () => {
   console.log('[AI Blocker] Installed');
+  await ensureConfigSeeded();
   await updateDNRRules();
 });
 
 chrome.runtime.onStartup.addListener(async () => {
+  await ensureConfigSeeded();
   await updateDNRRules();
 });
 
