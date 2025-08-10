@@ -39,3 +39,4 @@ npm run build
 - `content.js` hides pages that contain AI-related keywords unless the domain is whitelisted.
 
 
+

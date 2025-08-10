@@ -22,3 +22,4 @@ fs.writeFileSync(path.join(outDir, 'config.json'), JSON.stringify(config, null, 
 console.log('[AI Blocker] Wrote config/config.json');
 
 
+
